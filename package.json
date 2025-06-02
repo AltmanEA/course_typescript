@@ -5,7 +5,11 @@
   "scripts": {
     "build": "slidev build",
     "dev": "slidev --open",
-    "export": "slidev export"
+    "export": "slidev export",
+    "s:add": "node ./slidevadd/manage.js add",
+    "s:del": "node ./slidevadd/manage.js delete",
+    "s:build": "node ./slidevadd/run.js build",
+    "s:dev": "node ./slidevadd/run.js dev"
   },
   "dependencies": {
     "@slidev/cli": "^51.8.0",
