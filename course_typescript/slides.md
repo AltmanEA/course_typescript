@@ -1,1 +1,1 @@
-1. [first](./first/index.html)
+1. [Объектно-ориентированное программирование](./about/index.html)
