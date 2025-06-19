@@ -8,6 +8,7 @@
     "export": "slidev export",
     "s:add": "node ./slidevadd/manage.js add",
     "s:del": "node ./slidevadd/manage.js delete",
+    "s:up": "node ./slidevadd/manage.js up",
     "s:build": "node ./slidevadd/run.js build",
     "s:dev": "node ./slidevadd/run.js dev"
   },
