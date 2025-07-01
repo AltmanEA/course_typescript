@@ -1,4 +1,6 @@
----title: Обзор языка JavaScriptcanvasWidth: 800
+---
+title: Обзор языка JavaScript
+canvasWidth: 800
 ---
 
 # Обзор языка JavaScript
