@@ -1,6 +1,8 @@
 ---
 title: Объекты и их типы
 canvasWidth: 800
+monacoRunAdditionalDeps:
+  - deep-equal
 ---
 
 # Объекты и их типизация в typescript
@@ -15,7 +17,7 @@ canvasWidth: 800
 
 # Что будет позже
 
-- Методы создания объектов в программе (классы и др.)
+- Проектирование объектов в программе (классы и др.)
 
 ---
 layout: two-cols-header
@@ -25,28 +27,39 @@ layout: two-cols-header
 
 ::left::
 
-```mermaid {theme: 'neutral', scale: 0.8}
-flowchart LR
-    ref{{ссылка}} --> obj("свойство
-    свойство
-    ...
-    метод
-    метод
-    ...
-    ")
-```
-
-::right::
-
 ```ts {monaco}
 const a = {
     "x": 1
 }
 ```
 
-```mermaid {theme: 'neutral', scale: 0.8}
+::right::
+
+```mermaid {theme: 'neutral'}
 flowchart LR
     ref{{a}} --> obj("x: 1")
+```
+
+---
+
+# Объект и ссылка
+
+```mermaid {theme: 'neutral', flowchart: { nodeSpacing: 30 }}
+flowchart LR    
+    ref{{ссылка}}
+    subgraph obj ["Объект"]
+        methods{{методы}}
+        prop1([свойство1])
+        prop2([свойство2])
+        props([...])
+    end    
+    subgraph proto ["Прототип"]
+        m1([метод1])
+        m2([meтод2])
+        ms([...])
+    end
+    ref --> methods
+    methods --> m1
 ```
 
 ---
@@ -111,7 +124,7 @@ console.log(b)
 
 ::right::
 
-```mermaid {theme: 'neutral', scale: 0.8}
+```mermaid {theme: 'neutral'}
 flowchart LR
     refa{{a}} --> obj("x: 1")
     refb{{b}} --> obj
@@ -123,11 +136,14 @@ layout: two-cols-header
 
 # Копирование объекта
 
+Хорошо спроектированные объекты имеют свой метод копирования!
+
 ::left::
 
 ```ts {monaco-run}
 const a = { "x": 1 }
 
+// Копирует любые объекты
 const c = Object.assign({}, a)
 
 a.x = -1
@@ -138,10 +154,12 @@ console.log(c)
 
 ::right::
 
-```mermaid {theme: 'neutral', scale: 0.8}
+```mermaid {theme: 'neutral'}
 flowchart LR
     refa{{a}} --> obj1("x: 1")
     refb{{с}} --> obj2("x: 1")
+    obj1 --> proto("Прототип")
+    obj2 --> proto
 ```
 
 ---
@@ -175,7 +193,7 @@ console.log(b)
 
 ::right::
 
-```mermaid {theme: 'neutral', scale: 0.8}
+```mermaid {theme: 'neutral'}
 flowchart LR
     refx --> objx("x: 1")
     refy --> objx
@@ -267,3 +285,58 @@ console.log(array_equals(a, [1, 2]))
 console.log(array_equals(["a", "b", "c"], ["a", "b", "c"]))
 ```
 
+---
+
+# Глубокое сравнение объектов
+
+```ts {monaco-run}
+import deepEqual from "deep-equal"
+
+const a = { x: { x: 1 } }
+const b = { x: { x: 1 } }
+console.log(deepEqual(a, b))
+console.log(JSON.stringify(a) == JSON.stringify(b))
+    
+const c = { x: { y: 2, x: 1 } }
+const d = { x: { x: 1, y: 2 } }
+console.log(deepEqual(c, d))
+console.log(JSON.stringify(c) == JSON.stringify(d))
+```
+
+---
+
+# Методы объектов и функции
+
+<div class="grid grid-cols-2 gap-4">
+  <div>
+```ts {monaco-run}
+const y = {
+    "x": 1,
+    "inc": function () {
+        this.x += 1
+    }
+}
+y.inc()
+console.log(y)
+```
+  </div>
+  <div>
+```ts {monaco-run}
+type A = { x: number }
+const x = { x: 1 }
+function inc(a: A): A {
+    a.x += 1
+    return a
+}
+inc(x)
+console.log(x)
+```
+  </div>
+</div>
+
+
+---
+
+# Указатель this
+
+<img src="./this.png" width="100%"/>

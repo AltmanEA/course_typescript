@@ -17,6 +17,7 @@
     "@slidev/theme-default": "latest",
     "@slidev/theme-seriph": "latest",
     "cheerio": "^1.0.0",
+    "deep-equal": "^2.2.3",
     "vue": "^3.5.14"
   }
 }
