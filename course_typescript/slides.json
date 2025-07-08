@@ -1,0 +1,20 @@
+{
+  "slides": [
+    {
+      "name": "about",
+      "title": "О предмете"
+    },
+    {
+      "name": "ide",
+      "title": "Инструменты разработки"
+    },
+    {
+      "name": "js_review",
+      "title": "Обзор языка JavaScript"
+    },
+    {
+      "name": "object_type",
+      "title": "Объекты и их типы"
+    }
+  ]
+}
