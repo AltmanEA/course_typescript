@@ -265,11 +265,11 @@ console.log(a==d, a===d)
 
 ---
 
-# Структурное сравнение массивов. Параметры типа (Generic)
+# Структурное сравнение массивов. 
 
 ```ts {monaco-run}
-// T - параметр типа, вся функция - generic
-function array_equals<T>(a: T[], b: T[]): boolean {
+// Чуть позже избавимся от any
+function array_equals(a: any, b: any): boolean {
     if (a.length != b.length) return false    
     for (let i = 0; i < a.length; i++)
         if (a[i] !== b[i])
@@ -278,9 +278,10 @@ function array_equals<T>(a: T[], b: T[]): boolean {
 }
 
 const a = [1, 2, 3]
-console.log(array_equals<number>(a, [1, 2, 3]))
+console.log(array_equals(a, [1, 2, 3]))
 console.log(array_equals(a, [1, 2]))
 console.log(array_equals(["a", "b", "c"], ["a", "b", "c"]))
+console.log(array_equals([1, 2, 3], ["a", "b", "c"])) // Так быть не должно
 ```
 
 ---
@@ -446,3 +447,62 @@ console.log(len(123))
 console.log(len("12"))
 ```
 
+---
+
+# Параметры типа (Generic)
+
+```ts {monaco-run}
+// T - параметр типа, вся функция - generic
+function array_equals<T>(a: T[], b: T[]): boolean {
+    if (a.length != b.length) return false    
+    for (let i = 0; i < a.length; i++)
+        if (a[i] !== b[i])
+            return false
+    return true
+}
+
+const a = [1, 2, 3]
+console.log(array_equals<number>(a, [1, 2, 3]))
+console.log(array_equals(a, [1, 2]))
+console.log(array_equals(["a", "b", "c"], ["a", "b", "c"]))
+console.log(array_equals([1, 2, 3], ["a", "b", "c"]))
+```
+
+---
+
+# Ограничения параметров типа
+
+```ts {monaco-run}
+type A = {
+    firstname: string,
+    lastname: string
+}
+// function fullname(a: A): string - тоже можно
+function fullname<T extends A>(a: T): string {  
+    return a.firstname + " " + a.lastname    
+}
+const user = {
+    firstname: "John",
+    lastname: "Doe",
+    email: "jdoe@me.com"
+}
+console.log(fullname(user))
+```
+
+---
+
+# Оператор keyof
+
+```ts {monaco-run}
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+    return obj[key];
+}
+const user = {
+    id: 1,
+    name: 'John Doe',
+    email: 'john.doe@example.com'
+};
+const userName = getProperty(user, 'name'); // Возвращает 'John Doe'
+console.log(userName); // John Doe
+const userAge = getProperty(user, 'age'); 
+```
