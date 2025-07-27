@@ -506,3 +506,81 @@ const userName = getProperty(user, 'name'); // Возвращает 'John Doe'
 console.log(userName); // John Doe
 const userAge = getProperty(user, 'age'); 
 ```
+
+---
+
+# Тип Pick
+
+```ts {monaco}
+// From T, pick a set of properties whose keys are in the union K
+type Pick<T, K extends keyof T> = {
+    [P in K]: T[P];
+};
+```
+
+```ts {monaco}
+type User = {
+    id: number,
+    name: string,
+    email: string
+}
+type UserWithoutId = Pick<User, "name" | "email">
+const user: UserWithoutId = {
+    name: "John Doe",
+    email: "john.doe@example.com"
+}
+```
+
+---
+
+# Тип Omit
+
+```ts {monaco}
+// From T, pick a set of properties whose keys are not in the union K
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+```
+
+```ts {monaco}
+type User = {
+    id: number,
+    name: string,
+    email: string
+}
+type UserWithoutId = Omit<User, "id">
+const user: UserWithoutId = {
+    name: "John Doe",
+    email: "john.doe@example.com"    
+}
+```
+
+---
+
+# Тип Record
+
+```ts {monaco}
+// Construct a type with a set of properties K of type T
+type Record<K extends keyof any, T> = {
+    [P in K]: T;
+};
+```
+
+```ts {monaco}
+type User = {
+    id: number,
+    name: string,
+    email: string
+}
+type Users = Record<User["id"], User>
+const users: Users = {
+    1: {
+        id: 1,
+        name: "John Doe",
+        email: "john.doe@example.com"
+    },
+    2: {
+        id: 2,
+        name: "Jane Doe",
+        email: "jane.doe@example.com"
+    }    
+}
+```
