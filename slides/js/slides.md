@@ -1,6 +1,7 @@
 ---
 title: Обзор языка JavaScript
 canvasWidth: 800
+routerMode: hash
 ---
 
 # Обзор языка JavaScript

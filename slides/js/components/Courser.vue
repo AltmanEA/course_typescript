@@ -31,7 +31,7 @@ const toggleMenu = () => isMenu.value = !isMenu.value;
 .courser {
   position: absolute;
   top: 10px;
-  left: 10px;
+  right: 10px;
   font-size: 60%;
   padding: 5px;
   line-height: 1.4em;

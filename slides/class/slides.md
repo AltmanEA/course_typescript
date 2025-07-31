@@ -1,6 +1,7 @@
 ---
 title: Классы
 canvasWidth: 800
+routerMode: hash
 monacoRunAdditionalDeps:
   - ./preload.ts
 ---

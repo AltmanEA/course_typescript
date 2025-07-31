@@ -3,6 +3,7 @@ title: О предмете
 defaults:
   layout: 'center'
 canvasWidth: 800
+routerMode: hash
 ---
 
 # Объектно-ориентированное программирование

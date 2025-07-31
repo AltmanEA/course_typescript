@@ -1,6 +1,7 @@
 ---
 title: Объекты и их типы
 canvasWidth: 800
+routerMode: hash
 monacoRunAdditionalDeps:
   - deep-equal
 ---

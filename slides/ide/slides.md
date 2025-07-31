@@ -1,6 +1,7 @@
 ---
 title: Инструменты разработки
 canvasWidth: 800
+routerMode: hash
 ---
 
 # Инструменты разработки
