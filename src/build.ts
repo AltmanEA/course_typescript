@@ -41,7 +41,7 @@ console.log("--- Update index.html ---");
 template_update();
 
 console.log("--- Clean up ---");
-fs.rmSync(slide_dir + `/dist`, { recursive: true, force: true });
+// fs.rmSync(slide_dir + `/dist`, { recursive: true, force: true });
 
 function getTitleByLink(link: string) {
   const fileContent = fs.readFileSync(link, "utf8");
