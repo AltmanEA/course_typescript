@@ -15,6 +15,10 @@
     {
       "name": "object_type",
       "title": "Объекты и их типы"
+    },
+    {
+      "name": "class",
+      "title": "Классы"
     }
   ]
 }
