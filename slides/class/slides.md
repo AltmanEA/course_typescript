@@ -510,6 +510,25 @@ console.log(ivan.info())
 
 ---
 
+# Класс, реализующий тип
+
+```ts {monaco-run}
+type Person = {
+  name: string;
+  place: string;
+}
+class Student implements Person {
+    constructor( public name: string, public place: string) { } 
+    info(): string {
+        return `${this.name}, группа ${this.place}`
+    }
+}
+const ivan: Person = new Student("Иван", "22з")
+console.log(ivan.info())
+```
+
+---
+
 # Переменные типа класс
 
 ```ts {monaco-run}
