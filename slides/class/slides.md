@@ -192,24 +192,17 @@ console.log(ivan.last_name);
 
 ```ts {monaco-run}
 class Student {
-  first_name: string;
-  last_name: string;
-  full_name(): string {
-    return `${this.first_name} ${this.last_name}`;
-  }
+  first_name: string; last_name: string;
+  full_name(): string { return `${this.first_name} ${this.last_name}`; }
   constructor(full_name: string);
   constructor(names: [string, string]);
-  constructor(name: string | [string, string]) {
+  constructor(name: string | [string, string]) { // constructor(...args: any[]) 
     if (typeof name === "string") {
       const tmp = name.split(" ");
-      this.first_name = tmp[0];
-      this.last_name = tmp[1];
+      this.first_name = tmp[0]; this.last_name = tmp[1];
     } else {
-      this.first_name = name[0];
-      this.last_name = name[1];
-    }
-  }
-}
+      this.first_name = name[0]; this.last_name = name[1];
+    } } }
 console.log(new Student(["Иван", "Иванов"]).full_name());
 console.log(new Student("Петр Петров").full_name());
 ```
@@ -469,4 +462,64 @@ function longLoad(): string {
   // долгая операция
   return "Loaded"
 }
+```
+
+---
+
+# Классы и типы. 
+
+```ts {monaco-run}
+class Student {        
+    constructor( public name: string, public place: string) { } 
+    info(): string {
+        return `${this.name}, группа ${this.place}`
+    }
+  }
+class Tutor {        
+    constructor( public name: string, public place: string) { }
+    info(): string {
+        return `${this.name}, кафедра ${this.place}`
+    }
+}
+const ivan: Tutor = new Student("Иван", "22з")
+console.log(ivan.info())
+```
+
+
+---
+
+# Классы и типы. 
+
+```ts {monaco-run}
+class Student {        
+    constructor( public name: string, public place: string) { } 
+    info(): string {
+        return `${this.name}, группа ${this.place}`
+    }
+  }
+class Tutor {        
+    constructor( public name: string, public place: string) { }
+    info(): string {
+        return `${this.name}, кафедра ${this.place}`
+    }
+    static institute = "МГУ"  
+}
+const ivan: Tutor = new Student("Иван", "22з")
+console.log(ivan.info())
+```
+
+---
+
+# Переменные типа класс
+
+```ts {monaco-run}
+const someClass = class <Type> {
+    content: Type
+    constructor(value: Type) {
+        this.content = value
+    }
+}
+// const m: someClass<string>
+const m = new someClass("Hello, world")
+console.log(m.content)
 ```
