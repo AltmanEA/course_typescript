@@ -1,0 +1,10 @@
+.bad {
+  border: 1px solid #ff0000 !important;
+  margin: 2px;
+  border-radius: 8px;
+}
+.good {
+  border: 1px solid #00ff00 !important;
+  margin: 2px;
+  border-radius: 8px;
+}
