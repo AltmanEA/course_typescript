@@ -8,6 +8,10 @@ routerMode: hash
 
 ---
 
+# Visual Studio Code
+
+---
+
 # Платформа [Node.js](https://nodejs.org/en/)
 
 - _Node.js_ - кросс-платформенная среда выполнения JavaScript с открытым исходным кодом.
@@ -17,7 +21,13 @@ routerMode: hash
 ---
 
 # Платформа [Node.js](https://nodejs.org/en/)
-## npm
+
+## Папка проекта
+
+- ```package.json``` - конфигурация проекта
+- ```node_modules``` - папка с установленными зависимостями
+
+## Установка зависимостей
 
 ```bash
 npm install --global typescript
@@ -93,15 +103,7 @@ Ok to proceed? (y)
 
 ---
 
-# ```Package.json```
-
-Это файл, который содержит информацию о проекте в экосистеме Node.js. Его основное назначение — хранить список зависимостей (библиотек), необходимых для работы проекта. Также файл включает другую метаинформацию, в том числе скрипты, данные об авторе и лицензии, описание и свойства проекта. 
-
----
-
-# ```Package.json```
-
-## JSON
+# JSON
 
 ```json
 {
@@ -123,21 +125,90 @@ Ok to proceed? (y)
 
 # ```Package.json```
 
-```json {2,6,11|11-14|6-10}
+```json {2,5,11|11-16|17-19|5-10}
 {
-  "name": "lab",
-  "private": true,
+  "name": "course_typescript_lab",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "test": "vitest",
+    "t:test": "tsx ./utils/test.ts"
   },
   "devDependencies": {
+    "@types/node": "^24.0.12",
     "typescript": "~5.8.3",
-    "vite": "^6.3.5"
+    "vite": "^7.0.3",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "tsx": "^4.20.3"
   }
 }
 ```
+
+---
+
+# Задачи
+
+```basic01.js```
+```ts
+/* Реализовать функцию, которая возвращает большее из двух чисел. */
+export function max(a, b) {
+  return a
+}
+```
+
+```basic01.test.js```
+```ts
+import { test, expect } from 'vitest'
+import { max } from './basic01'
+test('max should return bigger number', () => {
+  expect(max(1, 2)).toBe(2)
+  expect(max(2, 1)).toBe(2)
+  expect(max(1, 1)).toBe(1)
+})
+```
+
+---
+
+# Тестирование
+
+```bash
+pnpm test basic01
+```
+<img src="/test_fail.png" width="60%" style="display: block; margin: 0 auto;"/>
+
+```bash
+ FAIL  Tests failed. Watching for file changes...
+       press h to show help, press q to quit
+```
+
+
+---
+
+# Решение задачи
+
+```ts
+export function max(a, b) { return a > b ? a : b }
+```
+
+```bash
+ RERUN  src/basic/basic01.js x1 
+        Filename pattern: basic01
+
+ ✓ src/basic/basic01.test.js (1 test) 2ms
+   ✓ max should return bigger number 1ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  11:31:29
+   Duration  15ms
+
+ PASS  Waiting for file changes...
+       press h to show help, press q to quit
+```
+
+
 
