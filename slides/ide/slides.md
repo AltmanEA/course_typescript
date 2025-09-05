@@ -211,4 +211,11 @@ export function max(a, b) { return a > b ? a : b }
 ```
 
 
+---
+
+# Отладка
+
+
+<img src="/debug.png" width="90%" style="display: block; margin: 0 auto;"/>
+
 
