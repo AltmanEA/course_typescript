@@ -252,14 +252,14 @@ const fetchData = new Promise<string>((resolve, reject) => {
 #  Промисы для примеров
 
 ```ts
-interface User {
-  id: number;
-  name: string; }
-interface Post {
-  userId: number;
-  title: string; }
+interface User { id: number; name: string; }
+interface Post { userId: number; title: string; }
 function fetchUser(id: number): Promise<User> {
-  return Promise.resolve({ id, name: `User ${id}` }); }  
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (Math.random() > 0.25) { resolve({ id, name: `User ${id}` });
+      } else { reject(new Error(`Failed to fetch user ${id}`));}
+    }, 100);});
 const fetchUserData = (id: number): Promise<User> => 
   Promise.resolve({ id, name: `User ${id}` });
 const fetchUserSettings = (id: number): Promise<{ theme: string }> => 
@@ -317,7 +317,7 @@ fetchUser(1).then( (user: User) => {
 # Параллельные асинхронные вызовы
 
 ```ts {monaco-run}
-import { fetchUserData, fetchUserSettings, User, Post }  from "./preload.ts";
+import { fetchUserData, fetchUserSettings, User }  from "./preload.ts";
 Promise.all([
   fetchUserData(1),
   fetchUserSettings(1),
@@ -401,7 +401,7 @@ function parseInteger(str: string): Result<number, ParseError> {
 # Функциональный сумматор
 
 ```ts {monaco-run}
-import { Result, failure, success, parseInteger}  from "./preload.ts";
+import { Result, failure, success, ParseError, parseInteger}  from "./preload.ts";
 function sumIntFunctional(a: string, b: string): Result<number, ParseError> {
   const aResult = parseInteger(a);
   const bResult = parseInteger(b);
@@ -423,7 +423,7 @@ console.log(JSON.stringify(sumIntFunctional("a", "b")))
 #  Функциональные комбинаторы
 
 ```ts {monaco}
-import { Result, failure, success}  from "./preload.ts";
+import { Result, success}  from "./preload.ts";
 function mapResult<T, U, E>(
   result: Result<T, E>,
   fn: (value: T) => U
@@ -449,7 +449,7 @@ function map2<T, U, V, E>(
 # Идиоматичный  функциональный сумматор
 
 ```ts {monaco-run}
-import { Result, failure, success, parseInteger, map2}  from "./preload.ts";
+import { Result, ParseError, parseInteger, map2}  from "./preload.ts";
 function sumIntPureFunctional(a: string, b: string): Result<number, ParseError> {
   return map2(
     parseInteger(a),
@@ -502,8 +502,7 @@ async function fetchUserPostsResult(userId: number): Promise<Result<Post[]>> {
 async function getUserWithPostsFlatMap(userId: number): Promise<Result<{
   user: User; posts: Post[]; }>> {
   const userResult = await fetchUserResult(userId);
-  return flatMapResultAsync(
-    userResult,
+  return flatMapResultAsync(userResult,
     async (user) => {
       const postsResult = await fetchUserPostsResult(user.id);
       return mapResult(
@@ -541,7 +540,7 @@ console.log(JSON.stringify(sumIntWithCombine("a", "b")))
 # Библиотека neverthrow
 
 ```ts {monaco-run}
-import { Result, ResultAsync, ok, err, okAsync, errAsync } from 'neverthrow';
+import { ResultAsync } from 'neverthrow';
 import { fetchUser, fetchUserPosts, User, Post }  from "./preload.ts";
 function fetchUserResult(id: number): ResultAsync<User, Error> {
   return ResultAsync.fromPromise(fetchUser(id), 
